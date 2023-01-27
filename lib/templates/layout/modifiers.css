@@ -1,0 +1,25 @@
+.zero-padding {
+    padding: 0;
+}
+
+.zero-margin {
+    margin: 0;
+}
+
+.article-text {
+    padding: 1em;
+}
+
+.article-grid {
+    grid-template-columns: 2fr 3fr;
+}
+
+.footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.center {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}

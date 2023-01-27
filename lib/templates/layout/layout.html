@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+        <link rel="stylesheet" href="modifiers.css">
+    </head>
+    <body>
+        <header class = "container">
+            <nav>
+                <ul>
+                  <li><strong>Booking</strong></li>
+                </ul>
+                <ul>
+                  <li><a href="/rooms">Rooms</a></li>
+                  <li><a href="#">Browse</a></li>
+                  <li>
+                    <form action="/search" class="zero-margin">
+                        <input type="search" id="term" name="term" placeholder="Search">
+                    </form>
+                </li>
+                </ul>
+              </nav>
+        </header>
+
+        {{{ content }}}
+
+
+
+        <script>
+
+        </script>
+
+    </body>
+    <footer class="container">
+        <div class="grid footer-grid">
+
+                <div class="center">
+                    <form class="zero-margin">
+                        <input type="hidden" name="term" value="{{term}}">
+                        <input type="hidden" name="limit" value="{{limit}}">
+                        <button name="offset" value="{{previous}}" class="zero-margin">Back</button>
+                    </form>
+                </div>
+                <div class="center">
+                    {{start}} - {{stop}}
+                </div>
+                <div class="center">
+                    <form class="zero-margin">
+                        <input type="hidden" name="term" value="{{term}}">
+                        <input type="hidden" name="limit" value="{{limit}}">
+                        <button name="offset" value="{{stop}}" class="zero-margin">Next</button>
+                    </form>
+                </div>
+            
+        </div>
+    </footer>
+</html>
