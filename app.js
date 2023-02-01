@@ -8,11 +8,15 @@ const Path = require('path');
 //plugin used to simplify backend structure
 const Glue = require("@hapi/glue");
 
+var cache = null;
+
 const manifest = {
     //server options
     server: {
         port:3000,
-        host: 'localhost'
+        host: 'localhost',
+        //l'impostazione della cache modificata dal plugi glue
+        cache: '@hapi/catbox-memory'
     },
     //plugin registration
     register: {
@@ -32,27 +36,62 @@ const manifest = {
             //vision plugin (necessary for view rendering via handlebars)
             { plugin: Vision },
             //routes relative to rooms packed in a user made plugin
-            { plugin: './modules/rooms' }
+            { plugin: './rooms' }
         ]
     }
 }
 
 //options for glue plugin
 const options = {
-    relativeTo: __dirname + '/lib'
+    relativeTo: __dirname + '/lib/modules',
+    preRegister: async function (server) {
+
+        const dbData = async function (db, offset, limit) {
+            const rooms = await db.collection('listingsAndReviews').find({}).skip(offset).limit(limit).toArray();
+            rooms.forEach( function(room) {
+                room.price = room.price.toString();
+            });
+
+            return rooms;
+        }
+
+        server.method('data', dbData, {
+                cache: {
+                    segment: 'views', // name of the segment where were are storing values
+                    expiresIn: 10 * 1000, // milliseconds
+                    generateTimeout: 1000 * 30
+                },
+                generateKey: (db, offset, limit) => ''+offset+limit
+            }
+        );
+
+        
+       
+        //creazione di una policy
+        /*
+        cache = server.cache({
+            segment: 'views', // name of the segment where were are storing values
+            expiresIn: 5 * 1000, // milliseconds
+        });
+        */
+    }
 }
+
 
 const startServer = async function () {
     try {
         const server = await Glue.compose(manifest, options);
-        //definizione path delle view
-        server.views({
-            engines: { html: Handlebars },
+
+         //definizione path delle view
+         server.views({
+            engines: { html: require('handlebars') },
             relativeTo: __dirname,
             path: './lib/templates',
             layout: true,
-            layoutPath: './lib/templates/layout'
+            layoutPath: './lib/templates/layout',
+            isCached: true
         });
+        
         //definiziona path per i file
         await server.start();
         console.log('Server running at: ' + server.info.uri);

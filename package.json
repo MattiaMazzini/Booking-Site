@@ -11,10 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/catbox": "^12.1.0",
+    "@hapi/catbox-redis": "^7.0.0",
     "@hapi/glue": "^9.0.0",
     "@hapi/inert": "^7.0.0",
     "@hapi/vision": "^7.0.0",
     "@picocss/pico": "^1.5.6",
+    "catbox": "^10.0.6",
     "handlebars": "^4.7.7",
     "hapi": "^18.1.0",
     "hapi-mongodb": "^10.0.3",
