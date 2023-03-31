@@ -1,29 +1,30 @@
-<main class="container">
+<main class="container main-body">
     {{#each item}}
         <div>
-            <article class="zero-padding">
-                
-                <div class="grid article-grid">
-                    <div>
-                        <figure class="zero-margin">
-                            <img src="{{this.images.picture_url}}" alt="room image">
-                        </figure>
-                    </div>
-                    <div class="article-text">
-                        <header>
-
-                            <hgroup>
-                                <h5>{{this.name}}</h5>
-                                <h6>{{this.address.country}}, {{this.address.country_code}}</h6>
-                              </hgroup>
-                        </header>
-                        <main>
-                            <b>{{this.price}}$</b> per night
-                        </main>
-                    </div>
+        <article class="zero-padding">
+            
+            <div class="grid article-grid">
+                <div>
+                    <figure class="zero-margin">
+                        <img src="{{this.images.picture_url}}" alt="room image">
+                    </figure>
                 </div>
+                <div class="article-text">
+                <header>
+
+                <hgroup>
+                <h5>{{this.name}}</h5>
+                <h6>{{this.address.country}}, {{this.address.country_code}}</h6>
+                </hgroup>
                 
-            </article>
+                </header>
+                <main>
+                    <b>{{this.price}}$</b> per night
+                </main>
+                </div>
+            </div>
+            
+        </article>
         </div>
     {{/each}}
 </main>

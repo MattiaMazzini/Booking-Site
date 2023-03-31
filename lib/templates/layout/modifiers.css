@@ -6,6 +6,11 @@
     margin: 0;
 }
 
+.main-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .article-text {
     padding: 1em;
 }

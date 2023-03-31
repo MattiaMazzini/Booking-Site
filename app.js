@@ -8,14 +8,12 @@ const Path = require('path');
 //plugin used to simplify backend structure
 const Glue = require("@hapi/glue");
 
-var cache = null;
-
 const manifest = {
     //server options
     server: {
         port:3000,
         host: 'localhost',
-        //l'impostazione della cache modificata dal plugi glue
+        //l'impostazione della cache modificata dal plugin glue
         cache: '@hapi/catbox-memory'
     },
     //plugin registration
@@ -56,24 +54,18 @@ const options = {
         }
 
         server.method('data', dbData, {
+            
                 cache: {
                     segment: 'views', // name of the segment where were are storing values
                     expiresIn: 10 * 1000, // milliseconds
-                    generateTimeout: 1000 * 30
+                    generateTimeout: 1000 * 30,
+                    getDecoratedValue: true
                 },
                 generateKey: (db, offset, limit) => ''+offset+limit
+                
             }
         );
 
-        
-       
-        //creazione di una policy
-        /*
-        cache = server.cache({
-            segment: 'views', // name of the segment where were are storing values
-            expiresIn: 5 * 1000, // milliseconds
-        });
-        */
     }
 }
 
@@ -88,8 +80,7 @@ const startServer = async function () {
             relativeTo: __dirname,
             path: './lib/templates',
             layout: true,
-            layoutPath: './lib/templates/layout',
-            isCached: true
+            layoutPath: './lib/templates/layout'
         });
         
         //definiziona path per i file
